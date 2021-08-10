@@ -1,0 +1,27 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Lon
+    network: mainnet
+    source:
+      address: "0x0000000000095413afc295d19edeb1ad7b71c952"
+      abi: Lon
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - MinterChanged
+        - OwnerChanged
+        - OwnerNominated
+        - Transfer
+      abis:
+        - name: Lon
+          file: ./abis/Lon.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+      file: ./src/mapping.ts
